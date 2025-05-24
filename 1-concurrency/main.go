@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"sync"
+	"time"
 )
 
 func createSlice(wg *sync.WaitGroup, chanOfNumbers chan int) {
@@ -29,6 +30,7 @@ func sqrtNumbers(wg *sync.WaitGroup, chanOfNumbers chan int, chanSqrtNumbers cha
 
 func main() {
 	var wg sync.WaitGroup
+	rand.Seed(time.Now().UnixNano())
 	chanOfNumbers := make(chan int, 10)
 	chanSqrtNumbers := make(chan int, 10)
 	wg.Add(1)
@@ -38,6 +40,4 @@ func main() {
 	for val := range chanSqrtNumbers {
 		fmt.Printf("%d ", val)
 	}
-	wg.Wait()
-
 }
